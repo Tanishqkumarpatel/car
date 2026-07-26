@@ -1,0 +1,40 @@
+# STM32CubeIDE / Eclipse build artifacts
+Debug/
+Release/
+**/Debug/
+**/Release/
+*.o
+*.d
+*.elf
+*.map
+*.bin
+*.hex
+*.list
+*.su
+
+# Eclipse/CubeIDE workspace metadata (don't commit workspace-level files)
+.metadata/
+.settings/
+.cproject
+.project
+.mxproject
+
+# CubeMX generated backup files (keep the .ioc itself, not backups)
+*.ioc.bak
+*_Conf.bak
+
+# STM32CubeIDE launch configs (often machine-specific paths)
+*.launch
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE clutter (if you also poke around in VS Code)
+.vscode/
+*.swp
+*~
+
+# Log files
+*.log
