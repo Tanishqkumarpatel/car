@@ -50,8 +50,8 @@ To get started:
 
 4. Build the project and flash it to the Nucleo-F446RE via the onboard ST-LINK.
 
-## 💡 Electrical Layout
-
+## 💡 Electrical Diagram
+![Electrical Diagram](car_diagram.png)
 
 ## 📝 Key Code Highlights
   * `Get_Distance()`: Calculates the distance to obstacles by manually starting/stopping `TIM4` to measure the width of the `ECHO` pulse in microseconds, including safety timeouts to prevent the microcontroller from freezing if sound waves fail to return.
