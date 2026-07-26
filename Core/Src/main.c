@@ -110,9 +110,9 @@ int main(void)
   while (1)
   {
 	  float distance = Get_Distance();
-	  printf("Distance to Wall: %.2f cm\r\n", distance);
+	  printf("Distance from the Object: %.2f cm\r\n", distance);
 
-	  if (distance >=0 && distance <= 15.0) {
+	  if (distance >=0 && distance <= 25.0) {
 		  Stop();
 		  HAL_Delay(200);
 
@@ -120,11 +120,11 @@ int main(void)
 		  HAL_Delay(400);
 
 		  Right();
-		  HAL_Delay(500);
+		  HAL_Delay(600);
 
 		  Stop();
 		  HAL_Delay(200);
-	  } else if (distance > 15.0 && distance <= 20.0) {
+	  } else if (distance > 25.0 && distance <= 40.0) {
 		  Roll();
 	  } else {
 		  Forward();
@@ -388,13 +388,10 @@ void Stop(void) {
 }
 
 void Roll(void) {
-//	Right Motor Low
-	HAL_GPIO_WritePin(A1_AIN1_RM_GPIO_Port, A1_AIN1_RM_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(A2_AIN2_RM_GPIO_Port, A2_AIN2_RM_Pin, GPIO_PIN_RESET);
-
-//	Left Motor Low
-	HAL_GPIO_WritePin(A3_BIN1_LM_GPIO_Port, A3_BIN1_LM_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(A4_BIN2_LM_GPIO_Port, A4_BIN2_LM_Pin, GPIO_PIN_RESET);
+	Forward();
+	HAL_Delay(50);
+	Back();
+	HAL_Delay(10);
 }
 
 float Get_Distance(void) {
