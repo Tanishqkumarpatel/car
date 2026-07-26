@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,6 +110,7 @@ int main(void)
   while (1)
   {
 	  float distance = Get_Distance();
+	  printf("Distance to Wall: %f", distance);
 
 	  if (distance >=0 && distance <= 15.0) {
 		  Stop();
