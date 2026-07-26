@@ -38,10 +38,7 @@ The GPIOs are configured via STM32CubeMX and mapped as follows:
 The project was generated using **STM32CubeMX** and developed in **STM32CubeIDE**. It utilizes the STM32 HAL (Hardware Abstraction Layer) libraries. 
 
 To get started:
-1. Clone the repository to your local machine (compatible with STM32CubeIDE on Windows or Ubuntu Linux).
-   ```bash
-   git clone [https://github.com/Tanishqkumarpatel/car.git](https://github.com/Tanishqkumarpatel/car.git)
-   ```
+1. Clone the repository to your local machine.
    
 2. Open the project in STM32CubeIDE.
 
