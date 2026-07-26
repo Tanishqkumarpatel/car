@@ -110,7 +110,7 @@ int main(void)
   while (1)
   {
 	  float distance = Get_Distance();
-	  printf("Distance to Wall: %f", distance);
+	  printf("Distance to Wall: %.2f cm\r\n", distance);
 
 	  if (distance >=0 && distance <= 15.0) {
 		  Stop();
@@ -329,6 +329,13 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+int _write(int file, char *ptr, int len) {
+    HAL_UART_Transmit(&huart2, (uint8_t*)ptr, len, HAL_MAX_DELAY);
+    return len;
+}
+
+
 void Forward(void) {
 //	Right Motor Forward
 	HAL_GPIO_WritePin(A1_AIN1_RM_GPIO_Port, A1_AIN1_RM_Pin, GPIO_PIN_SET);
