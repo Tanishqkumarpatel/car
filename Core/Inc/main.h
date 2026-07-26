@@ -59,8 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
-#define A5_SENSOR_TRIG_Pin GPIO_PIN_0
-#define A5_SENSOR_TRIG_GPIO_Port GPIOC
+#define A5_TRIG_Pin GPIO_PIN_0
+#define A5_TRIG_GPIO_Port GPIOC
 #define A4_BIN2_LM_Pin GPIO_PIN_1
 #define A4_BIN2_LM_GPIO_Port GPIOC
 #define A0_STBY_Pin GPIO_PIN_0
@@ -83,8 +83,8 @@ void Error_Handler(void);
 #define TCK_GPIO_Port GPIOA
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
-#define D10_SENSOR_ECHO_Pin GPIO_PIN_6
-#define D10_SENSOR_ECHO_GPIO_Port GPIOB
+#define D10_ECHO_Pin GPIO_PIN_6
+#define D10_ECHO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

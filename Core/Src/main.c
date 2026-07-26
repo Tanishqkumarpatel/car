@@ -101,7 +101,7 @@ int main(void)
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim4);
-  HAL_GPIO_WritePin(STBY_GPIO_Port, STBY_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(A0_STBY_GPIO_Port, A0_STBY_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
@@ -122,7 +122,7 @@ int main(void)
 		  HAL_Delay(500);
 
 		  Stop();
-		  HAL_Delat(200);
+		  HAL_Delay(200);
 	  } else if (distance > 15.0 && distance <= 20.0) {
 		  Roll();
 	  } else {
@@ -196,8 +196,8 @@ static void MX_TIM4_Init(void)
 
   /* USER CODE END TIM4_Init 0 */
 
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
-  TIM_IC_InitTypeDef sConfigIC = {0};
 
   /* USER CODE BEGIN TIM4_Init 1 */
 
@@ -208,21 +208,18 @@ static void MX_TIM4_Init(void)
   htim4.Init.Period = 65535;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_IC_Init(&htim4) != HAL_OK)
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
   {
     Error_Handler();
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
-  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
-  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 0;
-  if (HAL_TIM_IC_ConfigChannel(&htim4, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -284,7 +281,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, A5_SENSOR_TRIG_Pin|A4_BIN2_LM_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, A5_TRIG_Pin|A4_BIN2_LM_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, A0_STBY_Pin|A1_AIN1_RM_Pin|A2_AIN2_RM_Pin|LD2_Pin, GPIO_PIN_RESET);
@@ -298,8 +295,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : A5_SENSOR_TRIG_Pin A4_BIN2_LM_Pin */
-  GPIO_InitStruct.Pin = A5_SENSOR_TRIG_Pin|A4_BIN2_LM_Pin;
+  /*Configure GPIO pins : A5_TRIG_Pin A4_BIN2_LM_Pin */
+  GPIO_InitStruct.Pin = A5_TRIG_Pin|A4_BIN2_LM_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -318,6 +315,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(A3_BIN1_LM_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : D10_ECHO_Pin */
+  GPIO_InitStruct.Pin = D10_ECHO_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(D10_ECHO_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
@@ -390,13 +393,13 @@ float Get_Distance(void) {
 	uint32_t local_time = 0;
 
 //	Starting the sensor
-	HAL_GPIO_WritePin(A5_SENSOR_TRIG_GPIO_Port, A5_SENSOR_TRIG_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(A5_TRIG_GPIO_Port, A5_TRIG_Pin, GPIO_PIN_SET);
 
 //	Waiting for timer to hit 10 micro-seconds.
 	__HAL_TIM_SET_COUNTER(&htim4, 0);
 	while (__HAL_TIM_GET_COUNTER(&htim4) < 10);
 
-	HAL_GPIO_WritePin(A5_SENSOR_TRIG_GPIO_Port, A5_SENSOR_TRIG_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(A5_TRIG_GPIO_Port, A5_TRIG_Pin, GPIO_PIN_RESET);
 
 //	Starting timer.
 	__HAL_TIM_SET_COUNTER(&htim4, 0);
