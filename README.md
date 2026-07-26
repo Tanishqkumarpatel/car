@@ -58,6 +58,6 @@ To get started:
 
 ## 📸 Physical Build
 <p align="center">
-  <img src="car_front.jpg" width="48%" />
-  <img src="car_side.jpg" width="48%" />
+  <img src="Images/car_front.jpg" width="48%" />
+  <img src="Images/car_side.jpg" width="48%" />
 </p>
