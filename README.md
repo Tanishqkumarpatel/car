@@ -49,7 +49,7 @@ To get started:
 4. Build the project and flash it to the Nucleo-F446RE via the onboard ST-LINK.
 
 ## 💡 Electrical Diagram
-![Car Electrical Diagram](car_electrical_diagram.jpg)
+![Car Electrical Diagram](Images/car_electrical_diagram.png)
 
 ## 📝 Key Code Highlights
 
